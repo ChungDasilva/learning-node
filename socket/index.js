@@ -7,7 +7,7 @@ app.set("views", "./views");
 
 var server = require("http").Server(app);
 var io = require("socket.io")(server);
-server.listen(3000);
+server.listen( process.env.PORT || 3000);
 
 io.on("connection", function(socket) {
 	// show danh sách room đang có
