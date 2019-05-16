@@ -7,12 +7,36 @@
 	<script type="text/javascript">
 		//connect to server
 		var socket = io("http://localhost:3000");
+		socket.on("server-send-data", function (data) {
+			console.log("server send:" + data);
+			$("#noidung").append(data);
+		})
+
+		socket.on("server-room", function (listRoom) {
+			console.log(listRoom);
+		})
+
+		socket.on("chat-room", function (room) {
+			console.log(room)
+		})
 		$(document).ready(function() {
-			alert('chao')
+			$("#user").click(function() {
+				socket.emit("client-send-data", "HELLO")
+			})
+
+			$("#btnsubmit").click(function() {
+				var room = $("#txtroom").val();
+				socket.emit("create-room", room);
+			})
 		})
 	</script>
 </head>
 <body>
 <h1>xin chao</h1>
+<h1 id="user">Click</h1>
+<h2 id="noidung"></h2>
+
+<input type="text" id="txtroom">
+<input type="button" id="btnsubmit" value="create room">
 </body>
 </html>
